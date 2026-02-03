@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -11,7 +15,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {
@@ -19,25 +23,67 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@style/*": ["./src/style/*"],
-      "@layouts/*": ["./src/layouts/*"],
-      "@containers/*": ["./src/containers/*"],
-      "@config/*": ["./src/config/*"],
-      "@components/*": ["./src/components/*"],
-      "@providers/*": ["./src/providers/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@context/*": ["./src/context/*"],
-      "@queries/*": ["./src/queries/*"],
-      "@store/*": ["./src/store/*"],
-      "@services/*": ["./src/services/*"],
-      "@mutations/*": ["./src/mutations/*"],
-      "@types/*": ["./src/utils/types/*"],
-      "@api/*": ["./src/app/api/*"],
-      "@data/*": ["./src/data/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@style/*": [
+        "./src/style/*"
+      ],
+      "@layouts/*": [
+        "./src/layouts/*"
+      ],
+      "@containers/*": [
+        "./src/containers/*"
+      ],
+      "@config/*": [
+        "./src/config/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@providers/*": [
+        "./src/providers/*"
+      ],
+      "@hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
+      "@context/*": [
+        "./src/context/*"
+      ],
+      "@queries/*": [
+        "./src/queries/*"
+      ],
+      "@store/*": [
+        "./src/store/*"
+      ],
+      "@services/*": [
+        "./src/services/*"
+      ],
+      "@mutations/*": [
+        "./src/mutations/*"
+      ],
+      "@types/*": [
+        "./src/utils/types/*"
+      ],
+      "@api/*": [
+        "./src/app/api/*"
+      ],
+      "@data/*": [
+        "./src/data/*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
