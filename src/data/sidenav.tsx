@@ -1,7 +1,5 @@
 import {
   Home,
-  Document,
-  TaskSquare,
   Setting2,
   Stickynote,
   Folder2,
@@ -12,12 +10,14 @@ import {
   MenuBoard,
   MessageEdit,
   Edit,
+  Calendar,
 } from "iconsax-reactjs";
 import type { SidenavItem } from "@/components/ui";
 import { Newspaper } from "lucide-react";
 
 export const sideNavItems: SidenavItem[] = [
   { label: "Home", to: "/", icon: <Home size={18} /> },
+  { label: "Roster", to: "/roster", icon: <Calendar size={18} /> },
   { label: "MKVanBinnen", to: "#", icon: <Stickynote size={18} /> },
   { label: "Document Management", to: "#", icon: <Folder2 size={18} /> },
   { label: "Patient Information", to: "#", icon: <People size={18} /> },
@@ -29,7 +29,7 @@ export const sideNavItems: SidenavItem[] = [
     children: [
       { label: "News", to: "#" },
       { label: "Members", to: "#" },
-      { label: "To-Do", to: "/todowy" },
+      { label: "Roster", to: "/roster" },
       { label: "Form Task", to: "#" },
       { label: "Agenda", to: "#" },
       { label: "Follow up system", to: "#" },
@@ -37,7 +37,7 @@ export const sideNavItems: SidenavItem[] = [
     ],
   },
   { label: "Phone numbers", to: "#", icon: <Call size={18} /> },
-  { label: "My to do Protocols", to: "#", icon: <TaskSquare size={18} /> },
+  { label: "My Protocols", to: "#", icon: <MenuBoard size={18} /> },
   { label: "My Notifications", to: "#", icon: <NotificationBing size={18} /> },
   { label: "Knowledge Base", to: "#", icon: <MenuBoard size={18} /> },
   { label: "Super Admin", to: "#", icon: <MessageEdit size={18} /> },
@@ -54,12 +54,3 @@ export const sideNavItems: SidenavItem[] = [
     ],
   },
 ];
-
-// import type { SidenavItem } from "@/components/ui";
-
-// export const sideNavItems: SidenavItem[] = [
-//   {
-//     label: "Todo",
-//     to: "/todowy",
-//   },
-// ];

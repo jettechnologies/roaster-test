@@ -2,26 +2,20 @@ import { QUERY_KEYS } from "../query-keys";
 import { queryOptions } from "@tanstack/react-query";
 import { apiService } from "../api-service";
 
-export const getUsersOption = (
-  params?: Record<string, string | number | undefined>
-) => {
-  return queryOptions({
-    queryKey: QUERY_KEYS.user.list(params),
-    queryFn: () => apiService.getUsers(params),
-  });
-};
-
-export const getTodosOption = (
-  params?: Record<string, string | number | undefined>
-) =>
+export const getRosterShiftsOption = (date?: string) =>
   queryOptions({
-    queryKey: QUERY_KEYS.todo.list(params),
-    queryFn: () => apiService.getTodos(params),
+    queryKey: QUERY_KEYS.roster.shifts(date),
+    queryFn: () => apiService.getRosterShifts(date),
   });
 
-export const getTodoOption = (id: string) =>
+export const getRosterLocationsOption = () =>
   queryOptions({
-    queryKey: QUERY_KEYS.todo.singleTodos(id),
-    queryFn: () => apiService.getTodo(id),
-    enabled: !!id,
+    queryKey: QUERY_KEYS.roster.locations(),
+    queryFn: () => apiService.getRosterLocations(),
+  });
+
+export const getRosterUsersOption = () =>
+  queryOptions({
+    queryKey: QUERY_KEYS.roster.users(),
+    queryFn: () => apiService.getRosterUsers(),
   });

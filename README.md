@@ -205,6 +205,25 @@ You can download this README file by clicking the download button in the top-rig
 
 ---
 
+## 🗓️ Roster System (v2 Update)
+
+The Roster System has been implemented as per the Figma design. It includes a comprehensive planner for managing staff shifts.
+
+### Key Features:
+
+- **Interactive Calendar Grid:** A daily view showing time slots and locations.
+- **Staff Availability Sidebar:** Filter and search for staff members.
+- **Drag & Drop Scheduling:** Drag staff members from the sidebar directly onto the calendar grid to create shifts.
+- **Shift Details:** Click on any shift to view detailed information in a modal.
+- **Date Navigation:** Easily switch between days or return to the current day.
+- **View Toggles:** Switch between "Live" and "Plan" modes.
+
+### Accessing the Roster:
+
+Navigate to `/roster` in your browser to view the Roster System.
+
+---
+
 ## 🙏 Acknowledgments
 
 - [Next.js](https://nextjs.org/) team for the amazing framework

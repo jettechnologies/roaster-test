@@ -1,73 +1,51 @@
-import { User, Todo, TodoStatus, Priority, TodoAssignee } from "@prisma/client";
+import { users, locations, shifts } from "@/db/schema";
+import { type InferSelectModel } from "drizzle-orm";
 
-export type { User, Todo, TodoStatus, Priority };
+export type User = InferSelectModel<typeof users>;
+export type Location = InferSelectModel<typeof locations>;
+export type Shift = InferSelectModel<typeof shifts>;
 
-// Extended types for API responses
-export type TodoWithAssignees = Todo & {
-  assignees: (TodoAssignee & {
-    user: User;
-  })[];
-};
+export type RoasterUser = User;
 
-export type UserWithTodos = User & {
-  assignedTodos: (TodoAssignee & {
-    todo: Todo;
-  })[];
-};
+export type ShiftCategory = (typeof shifts.$inferSelect)["category"];
 
-// API request types
-export interface CreateTodoRequest {
-  taskName: string;
-  status: TodoStatus;
-  dates: Date | string;
-  assigneeIds: string[];
-  priority: Priority;
-  description?: string;
-}
-
-// export interface UpdateTodoRequest extends Partial<CreateTodoRequest> {
-//   id: string;
-// }
-
-export type UpdateTodoRequest = Partial<CreateTodoRequest>;
-
-// For compatibility with existing DataGrid component
-export type TransactionStatus = TodoStatus;
-export type PriorityStatus = Priority;
-
-export interface UserResponse {
-  id: string;
-  name: string;
-  email: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface AssigneeResponse {
-  todoId: string;
-  userId: string;
-  user: UserResponse;
-}
-
-export interface TodoResponse {
-  id: string;
-  taskName: string;
-  status: TodoStatus;
-  dates: string;
-  priority: Priority;
-  description: string;
-  createdAt: string;
-  updatedAt: string;
-  assignees: AssigneeResponse[];
-}
+export const ShiftCategory = {
+  SURGERY: "surgery",
+  PIJNSPECIALIST: "pijnspecialist",
+  CONSULTATION: "consultation",
+  CONSULT: "consult",
+  REVALIDATIE: "revalidatie",
+  OTHER: "other",
+} as const;
 
 export interface UsersResponse {
   id: string;
   name: string;
-  email: string;
-  createdAt: string;
-  updatedAt: string;
-  _count: {
-    assignedTodos: number;
-  };
+  email: string | null;
+  createdAt: Date;
+  updatedAt: Date;
 }
+
+export interface ShiftWithDetails extends Shift {
+  user: User;
+  location: Location;
+}
+
+export interface CreateShiftRequest {
+  userId: string;
+  locationId: string;
+  title: string;
+  startTime: string;
+  endTime: string;
+  date: Date | string;
+  category:
+    | "surgery"
+    | "pijnspecialist"
+    | "consultation"
+    | "consult"
+    | "revalidatie"
+    | "other";
+  color?: string | null;
+}
+
+export type UpdateShiftRequest = Partial<CreateShiftRequest>;

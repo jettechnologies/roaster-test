@@ -1,1 +1,1 @@
-export * from "./create-todo-modal";
+export * from "./modal";

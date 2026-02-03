@@ -1,10 +1,12 @@
 import type {
-  CreateTodoRequest,
-  UserResponse,
-  TodoResponse,
-  UpdateTodoRequest,
+  Shift,
+  Location,
+  ShiftWithDetails,
+  CreateShiftRequest,
+  UpdateShiftRequest,
+  RoasterUser,
 } from "@/types";
-// utils/apiService.ts
+
 export interface PaginationMeta {
   page: number;
   limit: number;
@@ -27,7 +29,7 @@ class ApiService {
 
   private async request<T>(
     endpoint: string,
-    options: RequestInit = {}
+    options: RequestInit = {},
   ): Promise<T> {
     const response = await fetch(`${this.baseUrl}${endpoint}`, {
       ...options,
@@ -40,89 +42,48 @@ class ApiService {
     if (!response.ok) {
       const errData = await response.json().catch(() => null);
       throw new Error(
-        errData?.error || `HTTP ${response.status}: ${response.statusText}`
+        errData?.error || `HTTP ${response.status}: ${response.statusText}`,
       );
     }
 
     return response.json();
   }
 
-  async getTodos(
-    params?: Record<string, string | number | undefined>
-  ): Promise<PaginatedResponse<TodoResponse>> {
-    let query = "";
-
-    if (params) {
-      // remove undefined values
-      const cleanedParams = Object.fromEntries(
-        Object.entries(params).filter(([_, v]) => v !== undefined)
-      ) as Record<string, string | number>;
-
-      query = `?${new URLSearchParams(
-        Object.entries(cleanedParams).reduce(
-          (acc, [key, value]) => ({
-            ...acc,
-            [key]: String(value),
-          }),
-          {} as Record<string, string>
-        )
-      ).toString()}`;
-    }
-
-    return this.request(`/todos${query}`);
+  // ✅ ROSTER METHODS
+  async getRosterShifts(date?: string): Promise<ShiftWithDetails[]> {
+    const query = date ? `?date=${date}` : "";
+    return this.request(`/roster/shifts${query}`);
   }
 
-  async getUsers(
-    params?: Record<string, string | number | undefined>
-  ): Promise<PaginatedResponse<UserResponse>> {
-    let query = "";
-
-    if (params) {
-      // remove undefined values
-      const cleanedParams = Object.fromEntries(
-        Object.entries(params).filter(([_, v]) => v !== undefined)
-      ) as Record<string, string | number>;
-
-      query = `?${new URLSearchParams(
-        Object.entries(cleanedParams).reduce(
-          (acc, [key, value]) => ({
-            ...acc,
-            [key]: String(value),
-          }),
-          {} as Record<string, string>
-        )
-      ).toString()}`;
-    }
-
-    return this.request(`/users${query}`);
-  }
-
-  // ✅ GET single todo
-  async getTodo(id: string) {
-    return this.request(`/todos/${id}`);
-  }
-
-  // ✅ CREATE new todo
-  async createTodo(data: CreateTodoRequest) {
-    return this.request(`/todos`, {
+  async createRosterShift(data: CreateShiftRequest): Promise<ShiftWithDetails> {
+    return this.request(`/roster/shifts`, {
       method: "POST",
       body: JSON.stringify(data),
     });
   }
 
-  // ✅ UPDATE a todo
-  async updateTodo(id: string, data: UpdateTodoRequest) {
-    return this.request(`/todos/${id}`, {
-      method: "PUT",
-      body: JSON.stringify(data),
+  async updateRosterShift(
+    id: string,
+    data: UpdateShiftRequest,
+  ): Promise<ShiftWithDetails> {
+    return this.request(`/roster/shifts`, {
+      method: "PATCH",
+      body: JSON.stringify({ id, ...data }),
     });
   }
 
-  // ✅ DELETE a todo
-  async deleteTodo(id: string) {
-    return this.request(`/todos/${id}`, {
+  async deleteRosterShift(id: string): Promise<void> {
+    await this.request(`/roster/shifts?id=${id}`, {
       method: "DELETE",
     });
+  }
+
+  async getRosterLocations(): Promise<Location[]> {
+    return this.request(`/roster/locations`);
+  }
+
+  async getRosterUsers(): Promise<RoasterUser[]> {
+    return this.request(`/roster/users`);
   }
 }
 

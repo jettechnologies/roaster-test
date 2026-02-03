@@ -1,74 +1,50 @@
 import { QUERY_KEYS } from "../query-keys";
 import { useMutation } from "@tanstack/react-query";
 import { apiService } from "../api-service";
-import type { CreateTodoRequest, UpdateTodoRequest } from "@/types";
+import type { CreateShiftRequest, UpdateShiftRequest } from "@/types";
 import { useQueryClient } from "@tanstack/react-query";
 import { useToastContext } from "@/hook/toast";
 
-interface UpdateTodoVariables {
-  id: string;
-  params: UpdateTodoRequest;
-}
-
-export const useCreateTodo = () =>
-  useMutation({
-    mutationFn: (params: CreateTodoRequest) => apiService.createTodo(params),
-    meta: {
-      invalidatesQuery: QUERY_KEYS.todo.all(),
-      errorMessage: "Error while creating todo",
-      successMessage: "Todo created successfully",
-    },
-  });
-
-export const useUpdateTodo = () => {
+export const useCreateRosterShift = () => {
   const queryClient = useQueryClient();
   const { openToast } = useToastContext();
 
   return useMutation({
-    mutationFn: ({ id, params }: UpdateTodoVariables) =>
-      apiService.updateTodo(id, params),
-
-    onSuccess: (_data, variables) => {
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.todo.singleTodos(variables.id),
-      });
-      openToast("Todo updated successfully", "success");
+    mutationFn: (data: CreateShiftRequest) =>
+      apiService.createRosterShift(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.roster.all() });
+      openToast("Shift created successfully", "success");
     },
-
-    onError: (error: Error) => {
-      openToast(error.message, "error");
-    },
-
-    onSettled: (_data, _error, variables) => {
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.todo.singleTodos(variables.id),
-      });
-    },
+    onError: (error: Error) => openToast(error.message, "error"),
   });
 };
 
-export const useDeleteTodo = () => {
+export const useUpdateRosterShift = () => {
   const queryClient = useQueryClient();
   const { openToast } = useToastContext();
 
   return useMutation({
-    mutationFn: ({ id }: { id: string }) => apiService.deleteTodo(id),
-
-    onSuccess: (_data, variables) => {
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.todo.singleTodos(variables.id),
-      });
-      openToast("Todo deleted successfully", "success");
+    mutationFn: ({ id, params }: { id: string; params: UpdateShiftRequest }) =>
+      apiService.updateRosterShift(id, params),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.roster.all() });
+      openToast("Shift updated successfully", "success");
     },
+    onError: (error: Error) => openToast(error.message, "error"),
+  });
+};
 
-    onError: (error: Error) => {
-      openToast(error.message, "error");
-    },
+export const useDeleteRosterShift = () => {
+  const queryClient = useQueryClient();
+  const { openToast } = useToastContext();
 
-    onSettled: (_data, _error, variables) => {
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.todo.singleTodos(variables.id),
-      });
+  return useMutation({
+    mutationFn: (id: string) => apiService.deleteRosterShift(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.roster.all() });
+      openToast("Shift deleted successfully", "success");
     },
+    onError: (error: Error) => openToast(error.message, "error"),
   });
 };

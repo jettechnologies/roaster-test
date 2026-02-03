@@ -15,8 +15,8 @@ export default function Home() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      router.push("/todowy?ui=row-horizontal");
-    }, 2500);
+      router.push("/roster");
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [router]);
@@ -36,18 +36,6 @@ export default function Home() {
       fontFamily="var(--plus-jakarta-sans)"
     >
       <VStack spacing={6}>
-        {/* Logo with bounce animation */}
-        <MotionImage
-          src="/images/todo-logo.png"
-          alt="App Logo"
-          width={100}
-          height={100}
-          priority
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        />
-
         {/* Spinner */}
         <Spinner
           thickness="5px"
@@ -67,7 +55,7 @@ export default function Home() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
         >
-          Loading your todos...
+          Loading Roster...
         </MotionText>
 
         <MotionText
@@ -78,7 +66,7 @@ export default function Home() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.8 }}
         >
-          Please wait while we set things up 🚀
+          Preparing your schedule 📅
         </MotionText>
       </VStack>
     </MotionFlex>

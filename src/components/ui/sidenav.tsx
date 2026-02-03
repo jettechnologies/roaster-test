@@ -1,8 +1,7 @@
 "use client";
 
-import { Box, List, Center } from "@chakra-ui/react";
+import { Box, List, Center, Text } from "@chakra-ui/react";
 import { type SidenavItem, SideNavItem } from "./sidenav-item";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 interface SideNavProps {
@@ -36,12 +35,9 @@ export const SideNav = ({ items }: SideNavProps) => {
       }}
     >
       <Center width="full">
-        <Image
-          src="/images/todo-logo.png"
-          alt="todo logo"
-          width={100}
-          height={100}
-        />
+        <Text fontSize="2xl" fontWeight="bold" color="var(--purple)">
+          ROSTER
+        </Text>
       </Center>
       <List spacing="12px" mt="30px">
         {items.map((item) => (

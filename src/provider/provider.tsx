@@ -3,7 +3,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useToastContext } from "@/hook/toast";
 import { useState, useEffect } from "react";
-import { createQueryClient } from "@/lib";
+import { createQueryClient } from "@/lib/query-client";
 
 export function TanstackQueryProvider({
   children,
