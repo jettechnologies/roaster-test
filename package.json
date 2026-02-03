@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "pnpm run db:push:prod && pnpm run db:seed:prod && next build --turbopack",
+    "build:dev": "next build --turbopack",
+    "build:prod": "pnpm run db:push:prod && pnpm run db:seed:prod && next build --turbopack",
     "start": "next start",
     "lint": "eslint",
     "db:generate": "drizzle-kit generate",
