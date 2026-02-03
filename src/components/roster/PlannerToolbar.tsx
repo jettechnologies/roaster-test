@@ -49,7 +49,7 @@ export const PlannerToolbar = ({
   onNewTask: () => void;
 }) => {
   return (
-    <Box py={2} bg="white">
+    <Box py={2} bg="white" px={4}>
       <HStack justify="space-between" mb={4}>
         <Text fontSize="18px" fontWeight="700" color="gray.800">
           Planner
@@ -90,12 +90,12 @@ export const PlannerToolbar = ({
       </HStack>
 
       <Box
-        bg="blue.50"
+        bg={viewMode === "live" ? "red.50" : "blue.50"}
         borderRadius="full"
         p={1.5}
         mb={6}
         border="1px solid"
-        borderColor="blue.100"
+        borderColor={viewMode === "live" ? "red.200" : "blue.200"}
       >
         <HStack spacing={4}>
           <HStack bg="white" p={0.5} borderRadius="full" boxShadow="sm">

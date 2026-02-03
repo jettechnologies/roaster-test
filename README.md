@@ -1,232 +1,84 @@
-# 🚀 Todo Test
+# 🚀 Roaster App (Roster System)
 
-A **Next.js 15** project built with **TypeScript**, **Chakra UI**, **React Query**, **Prisma ORM**, and **Formik/Yup** for form handling. This project serves as a template for building modern full-stack applications with a **PostgreSQL database** (via Prisma), clean UI components, and scalable architecture.
+A **Next.js 15** full-stack application built with **TypeScript**, **Chakra UI**, **Drizzle ORM**, **TanStack React Query**, and **Dnd-Kit**. The project provides a modern staff scheduling and rostering system backed by **PostgreSQL**, with a rich drag-and-drop calendar planner.
 
 ---
 
 ## 📦 Tech Stack
 
-- **Framework:** [Next.js 15](https://nextjs.org/) with Turbopack for fast builds
-- **Language:** [TypeScript](https://www.typescriptlang.org/)
-- **UI Library:** [Chakra UI](https://chakra-ui.com/) + [Tailwind CSS](https://tailwindcss.com/)
-- **Database:** [Prisma ORM](https://www.prisma.io/) with PostgreSQL (or other supported DBs)
-- **Forms:** [Formik](https://formik.org/) + [Yup](https://github.com/jquense/yup) for validation
-- **State Management & Data Fetching:** [TanStack React Query](https://tanstack.com/query/latest)
-- **Icons:** [Phosphor Icons](https://phosphoricons.com/), [Lucide React](https://lucide.dev/), [Iconsax](https://iconsax.io/)
-- **Package Manager:** [pnpm](https://pnpm.io/) for fast, disk space efficient package management
+- **Framework:** Next.js 15.5.3 (App Router + Turbopack)
+- **Language:** TypeScript
+- **UI Library:** Chakra UI + Tailwind CSS
+- **Drag & Drop:** Dnd-Kit
+- **Database:** PostgreSQL
+- **ORM:** Drizzle ORM
+- **State & Data Fetching:** TanStack React Query
+- **Forms & Validation:** Formik + Yup
+- **Icons:** Phosphor Icons, Lucide React, Iconsax
+- **Package Manager:** pnpm
 
 ---
 
 ## ⚙️ Prerequisites
 
-Before running the app locally, make sure you have installed:
+Before running the app locally, install:
 
-- [Node.js](https://nodejs.org/en/) **v18 or later**
-- [pnpm](https://pnpm.io/) - Fast, disk space efficient package manager
-- [PostgreSQL](https://www.postgresql.org/) (or another database supported by Prisma)
-- [Prisma CLI](https://www.prisma.io/docs/getting-started/quickstart) (comes with `prisma` package)
+- **Node.js v18+**
+- **pnpm**
+- **PostgreSQL**
 
-### Installing pnpm
+---
 
-Install pnpm globally using one of these methods:
+## 🛠️ Quick Setup
 
 ```bash
-# Using npm
+# Install pnpm (if not installed)
 npm install -g pnpm
-
-# Using Homebrew (macOS)
+# macOS alternative:
 brew install pnpm
 
-# Using Scoop (Windows)
-scoop install pnpm
+# Clone the repo
+git clone https://github.com/jettechnologies/roaster-test.git
+cd roaster-test
 
-# Using Chocolatey (Windows)
-choco install pnpm
-
-# Using standalone script
-curl -fsSL https://get.pnpm.io/install.sh | sh -
-```
-
----
-
-## 🛠️ Setup Instructions
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/your-username/todo-test.git
-cd todo-test
-```
-
-### 2. Install dependencies
-
-```bash
+# Install dependencies
 pnpm install
-```
 
-### 3. Set up environment variables
+# Create .env file and add:
+# DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/roaster_db"
 
-Create a `.env` file in the root directory and add your database connection string:
-
-```bash
-DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/todo_test"
-```
-
-### 4. Set up the database
-
-```bash
-# Generate Prisma client
+# Setup database
 pnpm run db:generate
-
-# Push schema to database (for development)
 pnpm run db:push
+pnpm run db:seed      # optional
+pnpm run db:studio    # optional (GUI for DB)
 
-# Run database migrations (for production)
-pnpm run db:migrate
-
-# Open Prisma Studio (optional)
-pnpm run db:studio
-
-# Seed the database with sample data (optional)
-pnpm run db:seed
-
-# Reset database (optional - WARNING: This will delete all data)
-pnpm run db:reset
-```
-
-### 5. Run the development server
-
-```bash
+# Start development server
 pnpm run dev
-```
+pnpm run dev         # Start development server
+pnpm run build       # Build for production
+pnpm run start       # Run production build
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
----
-
-## 📝 Available Scripts
-
-```bash
-# Development
-pnpm run dev              # Start development server
-
-# Build & Production
-pnpm run build            # Build for production
-pnpm run start            # Start production server
-
-# Database Operations
-pnpm run db:generate      # Generate Prisma client
-pnpm run db:push          # Push schema changes to database
-pnpm run db:migrate       # Run database migrations
-pnpm run db:studio        # Open Prisma Studio
-pnpm run db:seed          # Seed database with sample data
-pnpm run db:reset         # Reset database (WARNING: Deletes all data)
-```
-
----
-
-## 📁 Project Structure
+pnpm run db:generate # Generate Drizzle schema
+pnpm run db:push     # Push schema to database
+pnpm run db:studio   # Open Drizzle studio
+pnpm run db:seed     # Seed database
 
 ```
-todo-test/
-├── prisma/
-│   ├── schema.prisma
-│   ├── migrations/                    # Generated by prisma migrate
-│   └── seed.ts                        # Database seeding script
+
+## Project structure
+
+roaster-test/
 ├── src/
-│   ├── app/                          # Next.js 15 App Router
-│   │   ├── layout.tsx                # Root layout
-│   │   ├── page.tsx                  # Homepage
-│   │   └── api/                      # API routes
-│   │       ├── todos/
-│   │       │   ├── route.ts          # GET (list with filters + pagination), POST (create)
-│   │       │   └── [id]/
-│   │       │       └── route.ts      # GET (single), PUT (update), DELETE (delete)
-│   │       └── users/
-│   │           └── route.ts          # GET (list/search/pagination)
-│   ├── components/
-│   │   ├── ui/                       # Small UI primitives (badge, inputs, modals)
-│   │   └── shared/                   # Larger shared components (data-table, kanban, header)
-│   ├── lib/
-│   │   └── prisma.ts                 # Prisma client configuration
-│   ├── hooks/                        # Custom React hooks
-│   │   └── ...                       # (usePrefetchQueryData, etc.)
-│   ├── services/
-│   │   ├── api-service.ts            # Client-side API service
-│   │   └── tanstack-queries/         # React Query configurations
-│   ├── styles/                       # Global Sass/Tailwind config
-│   ├── types/                        # TypeScript interfaces
-│   │   └── ...                       # (TodoResponse, UserResponse, etc.)
-│   ├── utils/                        # Utility functions
-│   │   └── ...                       # (enum mappers, date helpers, form helpers)
-│   └── app-utils/                    # App-level helpers (optional)
-├── public/                           # Static assets (images, icons)
-├── .env                             # Environment variables (local)
+│ ├── app/ # Next.js App Router
+│ ├── components/ # UI & shared components
+│ ├── db/ # Drizzle schema & seed
+│ ├── hooks/ # Custom React hooks
+│ ├── services/ # API & React Query logic
+│ ├── styles/ # Tailwind & global styles
+│ └── utils/ # Helpers
+├── public/
 ├── package.json
-├── tsconfig.json
-├── tailwind.config.js
 ├── next.config.js
+├── tailwind.config.js
 └── README.md
-```
-
----
-
-## 🚀 Getting Started
-
-1. **Install pnpm globally** (if not already installed)
-2. **Clone the repository** and navigate to the project directory
-3. **Install dependencies** with `pnpm install`
-4. **Set up your database** connection in `.env`
-5. **Generate Prisma client** and push schema with `pnpm run db:generate && pnpm run db:push`
-6. **Start the development server** with `pnpm run dev`
-7. **Visit** [http://localhost:3000](http://localhost:3000) to see your app
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 📥 Download
-
-You can download this README file by clicking the download button in the top-right corner of this document, or copy the content directly from here.
-
----
-
-## 🗓️ Roster System (v2 Update)
-
-The Roster System has been implemented as per the Figma design. It includes a comprehensive planner for managing staff shifts.
-
-### Key Features:
-
-- **Interactive Calendar Grid:** A daily view showing time slots and locations.
-- **Staff Availability Sidebar:** Filter and search for staff members.
-- **Drag & Drop Scheduling:** Drag staff members from the sidebar directly onto the calendar grid to create shifts.
-- **Shift Details:** Click on any shift to view detailed information in a modal.
-- **Date Navigation:** Easily switch between days or return to the current day.
-- **View Toggles:** Switch between "Live" and "Plan" modes.
-
-### Accessing the Roster:
-
-Navigate to `/roster` in your browser to view the Roster System.
-
----
-
-## 🙏 Acknowledgments
-
-- [Next.js](https://nextjs.org/) team for the amazing framework
-- [Prisma](https://www.prisma.io/) for the excellent ORM
-- [Chakra UI](https://chakra-ui.com/) for the beautiful component library
-- [TanStack Query](https://tanstack.com/query/latest) for powerful data fetching

@@ -261,7 +261,7 @@ export default function RosterPage() {
         <RosterSidebar />
         <Box ml="240px" flex={1}>
           <RosterHeader />
-          <Box px={8} py={4} border="2px solid black">
+          <Box px={8} py={4}>
             <PlannerToolbar
               viewMode={viewMode}
               setViewMode={handleViewModeChange}
