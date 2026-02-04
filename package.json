@@ -5,15 +5,17 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build:dev": "next build --turbopack",
-    "build:prod": "pnpm run db:push:prod && pnpm run db:seed:prod && next build --turbopack",
+    "build:prod": "pnpm run db:push:prod && pnpm run db:seed:neon && next build --turbopack",
     "start": "next start",
     "lint": "eslint",
+    "db:migrate": "tsx src/db/migrate.ts",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "db:seed": "tsx src/db/seed.ts",
     "db:push:prod": "drizzle-kit push",
-    "db:seed:prod": "ts-node-esm --project tsconfig.seed.json src/db/seed.ts"
+    "db:seed:prod": "ts-node --project tsconfig.seed.json src/db/seed.ts",
+    "db:seed:neon": "tsx ./src/db/seed.neon.ts"
   },
   "dependencies": {
     "@chakra-ui/next-js": "^2.4.2",
@@ -23,6 +25,7 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
+    "@neondatabase/serverless": "^1.0.2",
     "@paralleldrive/cuid2": "^3.3.0",
     "@phosphor-icons/react": "^2.1.10",
     "@tanstack/react-query": "^5.89.0",
